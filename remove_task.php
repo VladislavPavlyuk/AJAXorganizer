@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require 'Organizer.php';
 
@@ -11,8 +10,8 @@ $organizer = $_SESSION['organizer'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
-    $task = $_POST['task'];
-    $organizer->addTask($date, $task);
+    $index = $_POST['index'];
+    $organizer->removeTask($date, $index);
 }
 
 $tasks = $organizer->getTasks('day'); // Получение задач на день

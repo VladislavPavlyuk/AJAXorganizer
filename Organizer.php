@@ -1,36 +1,35 @@
 <?php
-
-class Organizer
-{
+class Organizer {
     private $tasks = [];
 
+    // Метод для добавления задачи
     public function addTask($date, $task) {
         $this->tasks[$date][] = $task;
     }
 
+    // Метод для получения задач на определенный период
     public function getTasks($period) {
-        $filteredTasks = [];
+        $result = [];
         $currentDate = new DateTime();
 
         foreach ($this->tasks as $date => $tasks) {
             $taskDate = new DateTime($date);
             $interval = $currentDate->diff($taskDate)->days;
 
-            if (($period === 'day' && $interval === 0) ||
-                ($period === 'week' && $interval <= 7) ||
-                ($period === 'month' && $interval <= 30)) {
-                $filteredTasks[$date] = $tasks;
+            if (($period == 'day' && $interval == 0) ||
+                ($period == 'week' && $interval <= 7) ||
+                ($period == 'month' && $interval <= 30)) {
+                $result[$date] = $tasks;
             }
         }
-
-        return $filteredTasks;
+        return $result;
     }
 
-    /*public function removeTask($date, $taskIndex) {
+    // Метод для отмены задачи
+    public function removeTask($date, $taskIndex) {
         if (isset($this->tasks[$date][$taskIndex])) {
             unset($this->tasks[$date][$taskIndex]);
-            $this->tasks[$date] = array_values($this->tasks[$date]); // Reindex array
+            $this->tasks[$date] = array_values($this->tasks[$date]); // Пересортировка массива
         }
-    }*/
-
+    }
 }
